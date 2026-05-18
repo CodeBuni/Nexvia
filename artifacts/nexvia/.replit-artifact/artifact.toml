@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Nexvia — Marketing Website"
+version = "1.0.0"
+id = "artifacts/nexvia"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19055
+
+[services.development]
+run = "pnpm --filter @workspace/nexvia run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/nexvia", "run", "build" ]
+publicDir = "artifacts/nexvia/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19055"
+BASE_PATH = "/"
