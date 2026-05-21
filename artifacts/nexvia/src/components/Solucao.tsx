@@ -76,10 +76,10 @@ export function Solucao() {
 
         <div className="cards-container grid grid-cols-1 md:grid-cols-3 gap-8">
           {services.map((srv, i) => (
-            <div 
-              key={i}
-              ref={(el) => (cardsRef.current[i] = el)}
-              className="glassmorphism p-8 rounded-2xl flex flex-col items-start gap-6 hover:border-primary/30 transition-colors group"
+              <div 
+                key={i}
+                ref={(el) => (cardsRef.current[i] = el)}
+                className="glassmorphism p-8 rounded-2xl flex flex-col items-start gap-6 border-brutal hover:glow-primary transition-colors group"
             >
               <div className="p-4 rounded-xl bg-primary/10 group-hover:scale-110 transition-transform duration-300">
                 {srv.icon}

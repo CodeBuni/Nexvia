@@ -1,0 +1,106 @@
+Build a cinematic, scroll-storytelling marketing website for **Nexvia** — a Portuguese B2B agency that sells automation and growth services to private health clinics (dentists, medical aesthetics, physio, psychologists). Nexvia also has its own product already live: **VetScribe**, an AI app for veterinary clinics.
+
+---
+
+## BRAND & TONE
+- Dark, premium, clinical — dark navy/black background with electric cyan or cold white accents
+- Professional but not cold. Confident. Results-driven.
+- Typography: bold editorial headlines + clean body text
+- Language: European Portuguese (Portugal)
+
+---
+
+## TECH REQUIREMENTS
+- Single HTML file (vanilla JS + CSS, no frameworks)
+- GSAP CDN for scroll animations and ScrollTrigger
+- Lenis CDN for smooth scroll
+- Fully responsive (mobile-first)
+- Custom cursor (desktop)
+- Smooth page load animation
+
+---
+
+## SECTIONS (in order)
+
+### 1. HERO — Full screen
+- Background: dark with subtle animated gradient mesh or noise texture
+- Big cinematic headline: "Automação que enche a agenda. Crescimento que fica."
+- Subheadline: "Ajudamos clínicas de saúde privada a automatizar processos, reter pacientes e crescer de forma previsível."
+- CTA button: "Quero saber mais" (smooth scroll to contact)
+- Scroll indicator animado
+
+### 2. PROBLEMA — Scroll-triggered text reveal
+- Title: "A maioria das clínicas perde dinheiro sem saber"
+- 3 pain points that appear one by one on scroll:
+  1. "Pacientes que não voltam porque ninguém os contactou"
+  2. "Horas perdidas em agendamentos manuais e chamadas"
+  3. "Sem sistema. Sem previsibilidade. Sem crescimento."
+
+### 3. SOLUÇÃO — Pinned section with animated cards
+- Title: "O que a Nexvia faz por si"
+- 3 animated service cards that reveal on scroll:
+  1. **Automação de Processos** — Agendamento automático, lembretes SMS/email, follow-up pós-consulta, reativação de pacientes inativos, reviews automáticas.
+  2. **Sites + Landing Pages** — Sites para clínicas, páginas de captura, SEO local, integração com sistemas de agendamento.
+  3. **Apps de Nicho** — Apps específicas por especialidade médica. Produto escalável e revendível.
+
+### 4. PRODUTO PRÓPRIO — Destaque especial (full-width section)
+- Title: "Já construímos o nosso próprio produto."
+- Subtext: "A Nexvia não vende só serviços. Desenvolve produtos reais para o setor da saúde."
+- Big product card for **VetScribe**:
+  - Badge: "Produto lançado"
+  - Headline: "VetScribe — IA para clínicas veterinárias"
+  - Description: "Grava a consulta e a IA gera automaticamente o prontuário SOAP, relatórios para tutores e atestados. Transforma áudio, notas e documentos em relatórios completos com templates personalizáveis. Poupe horas de papelada."
+  - Tags: [IA] [Veterinária] [Automação] [SOAP] [Templates]
+  - CTA button: "Ver VetScribe" (placeholder link #)
+  - Visual: abstract waveform or audio-to-document animation in CSS
+
+### 5. VERTICAIS — Staggered reveal
+- Title: "Especialistas no setor da saúde privada"
+- 3 clinic types:
+  1. 🦷 Dentistas — "Agendamento, lembretes e retenção. Prioridade máxima."
+  2. 💉 Estética Médica — "Margens altas. Upsell e retenção com automação."
+  3. 🧠 Fisio + Psicólogos — "Volume de sessões repetidas. Follow-up com ROI imediato."
+
+### 6. MODELO DE NEGÓCIO — Clean pricing cards
+- Title: "Simples. Sem surpresas."
+- 2 cards:
+  1. **Setup** — Implementação inicial — €500 a €2.000 (one-time)
+  2. **Retainer Mensal** — Manutenção, novos fluxos, otimizações — €300 a €800/mês
+- Small note: "Começamos com um projeto. Ficamos com os resultados."
+
+### 7. SOCIAL PROOF placeholder
+- Title: "Resultados reais. Clínicas reais."
+- 2 placeholder testimonial cards with lorem text, clinic type label, star rating
+- Subtle note in corner: "[Em breve — casos de sucesso reais]"
+
+### 8. CTA FINAL — Full screen cinematic
+- Big text: "A sua clínica pode crescer de forma previsível."
+- Subtext: "Fale connosco. Sem compromisso."
+- Simple contact form: name, email, clinic type dropdown (Dentista, Estética Médica, Fisioterapia, Psicologia, Veterinária, Outro), message
+- WhatsApp CTA button alongside form
+
+### 9. FOOTER
+- Logo Nexvia + tagline: "Automação e crescimento para clínicas de saúde privada"
+- Links: Serviços, VetScribe, Contacto
+- "© 2025 Nexvia. Todos os direitos reservados."
+
+---
+
+## ANIMATIONS
+- Hero: staggered text reveal on load
+- All sections: fade-up on scroll enter (ScrollTrigger)
+- Service cards: scale + fade in with stagger
+- Pain points: appear one by one as user scrolls
+- VetScribe card: special entrance animation — slides in from right with glow effect
+- CTA section: parallax background effect
+- Smooth cursor follow on desktop
+
+---
+
+## DESIGN DETAILS
+- Color palette: #0A0A0F (background), #00C2FF (accent cyan), #4DFFB4 (accent green for VetScribe), #FFFFFF (text), #1A1A2E (cards)
+- Border radius: 8–12px on cards
+- Card style: glassmorphism with subtle border
+- VetScribe card: slightly different accent (green #4DFFB4) to distinguish from main brand
+- No stock photos — use geometric/abstract CSS shapes and gradient visuals
+- All text in European Portuguese

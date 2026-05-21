@@ -1,7 +1,21 @@
+
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { Menu, X } from "lucide-react";
 import { Link } from "wouter";
+
+const NexviaLogo = () => (
+  <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="nexvia-gradient" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#4F6EF7" />
+        <stop offset="1" stopColor="#7B5EF8" />
+      </linearGradient>
+    </defs>
+    <rect x="2" y="2" width="36" height="36" rx="8" fill="url(#nexvia-gradient)" />
+    <text x="50%" y="56%" textAnchor="middle" fill="#F0F0FF" fontFamily="'Space Grotesk', sans-serif" fontWeight="900" fontSize="18" dy=".3em">N</text>
+  </svg>
+);
 
 export function Nav() {
   const navRef = useRef<HTMLElement>(null);
@@ -38,8 +52,9 @@ export function Nav() {
       className="fixed top-0 left-0 w-full z-50 transition-all"
     >
       <div className="container mx-auto px-6 h-24 flex items-center justify-between">
-        <Link href="/" className="font-display font-bold text-2xl tracking-wider flex items-baseline gap-1" data-testid="link-logo">
-          NEXVIA<span className="w-2 h-2 rounded-full bg-primary mb-1 inline-block"></span>
+        <Link href="/" className="flex items-center gap-2" data-testid="link-logo">
+          <NexviaLogo />
+          <span className="font-display font-extrabold text-2xl tracking-wider text-glow-primary" style={{letterSpacing: '-0.04em'}}>NEXVIA</span>
         </Link>
 
         {/* Desktop Links */}

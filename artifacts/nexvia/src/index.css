@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700;800;900&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
@@ -27,40 +27,38 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
-  
-  --font-sans: 'Inter', sans-serif;
-  --font-display: 'Syne', sans-serif;
+  --font-sans: 'Space Grotesk', sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
 }
+
 
 :root {
   --background: #0A0A0F;
-  --foreground: #FFFFFF;
-  --border: rgba(255, 255, 255, 0.1);
-  --card: #1A1A2E;
-  --card-foreground: #FFFFFF;
-  --card-border: rgba(255, 255, 255, 0.1);
-  --popover: #1A1A2E;
-  --popover-foreground: #FFFFFF;
-  --popover-border: rgba(255, 255, 255, 0.1);
-  --primary: #00C2FF;
-  --primary-foreground: #000000;
-  --secondary: rgba(255, 255, 255, 0.05);
-  --secondary-foreground: #FFFFFF;
-  --muted: rgba(255, 255, 255, 0.05);
-  --muted-foreground: rgba(255, 255, 255, 0.6);
-  --accent: rgba(0, 194, 255, 0.1);
-  --accent-foreground: #00C2FF;
+  --foreground: #F0F0FF;
+  --border: rgba(255,255,255,0.08);
+  --card: rgba(255,255,255,0.03);
+  --card-foreground: #F0F0FF;
+  --card-border: rgba(255,255,255,0.08);
+  --popover: #181824;
+  --popover-foreground: #F0F0FF;
+  --popover-border: rgba(255,255,255,0.08);
+  --primary: #4F6EF7;
+  --primary-foreground: #F0F0FF;
+  --secondary: rgba(255,255,255,0.05);
+  --secondary-foreground: #F0F0FF;
+  --muted: rgba(255,255,255,0.05);
+  --muted-foreground: rgba(255,255,255,0.6);
+  --accent: #7B5EF8;
+  --accent-foreground: #F0F0FF;
   --destructive: #EF4444;
-  --destructive-foreground: #FFFFFF;
-  --input: rgba(255, 255, 255, 0.1);
-  --ring: #00C2FF;
-
-  --chart-1: #00C2FF;
-  --chart-2: #4DFFB4;
-  --chart-3: rgba(255, 255, 255, 0.8);
-  --chart-4: rgba(255, 255, 255, 0.6);
-  --chart-5: rgba(255, 255, 255, 0.4);
-
+  --destructive-foreground: #F0F0FF;
+  --input: rgba(255,255,255,0.08);
+  --ring: #4F6EF7;
+  --chart-1: #4F6EF7;
+  --chart-2: #7B5EF8;
+  --chart-3: rgba(255,255,255,0.8);
+  --chart-4: rgba(255,255,255,0.6);
+  --chart-5: rgba(255,255,255,0.4);
   --radius: 0.5rem;
 }
 
@@ -74,10 +72,14 @@
   }
   html, body {
     @apply font-sans bg-background text-foreground antialiased;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.01em;
   }
-  
   h1, h2, h3, h4, h5, h6, .font-display {
-    font-family: var(--font-display);
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.01em;
   }
 
   /* Custom Scrollbar */
@@ -105,15 +107,48 @@
 
 @layer utilities {
   .glassmorphism {
-    @apply bg-[rgba(26,26,46,0.5)] backdrop-blur-md border border-[rgba(255,255,255,0.05)] shadow-xl;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #F0F0FF;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
   }
-  
-  .text-glow-cyan {
-    text-shadow: 0 0 20px rgba(0, 194, 255, 0.5);
+  .glassmorphism:focus {
+    outline: none;
+    box-shadow: 0 0 24px 0 #4F6EF7;
+    border-color: #4F6EF7;
   }
-  
-  .text-glow-green {
-    text-shadow: 0 0 20px rgba(77, 255, 180, 0.5);
+  .text-glow-primary {
+    text-shadow: 0 0 20px rgba(79,110,247,0.5);
+  }
+  .text-glow-accent {
+    text-shadow: 0 0 20px rgba(123,94,248,0.5);
+  }
+  .glow-primary {
+    box-shadow: 0 0 80px rgba(79,110,247,0.3);
+  }
+  .border-brutal {
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .grain-bg {
+    position: relative;
+  }
+  .grain-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.08"/></svg>');
+    opacity: 0.08;
+    z-index: 1;
+  }
+  .section-separator {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.06) 0%, rgba(79,110,247,0.12) 100%);
+    margin: 3rem 0;
   }
 }
 
@@ -124,8 +159,8 @@
   width: 100%;
   height: 100%;
   background: 
-    radial-gradient(circle at 15% 50%, rgba(0, 194, 255, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 85% 30%, rgba(77, 255, 180, 0.05) 0%, transparent 50%);
+    radial-gradient(circle at 15% 50%, rgba(79,110,247,0.15) 0%, transparent 50%),
+    radial-gradient(circle at 85% 30%, rgba(123,94,248,0.08) 0%, transparent 50%);
   animation: mesh-shift 15s ease-in-out infinite alternate;
   z-index: -2;
 }

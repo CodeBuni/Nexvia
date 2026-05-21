@@ -75,10 +75,8 @@ export function Verticais() {
               ref={(el) => (itemsRef.current[i] = el)}
               className="p-8 border border-white/10 rounded-2xl bg-card/50 hover:bg-card hover:border-primary/20 transition-all text-center group"
             >
-              <div className="text-5xl mb-6 group-hover:scale-110 transition-transform inline-block">
-                {v.emoji}
-              </div>
-              <h3 className="font-display text-2xl font-bold mb-3">{v.title}</h3>
+              {/* Emoji removido para visual mais limpo */}
+              <h3 className="font-display text-2xl font-bold mb-3 text-glow-primary">{v.title}</h3>
               <p className="text-muted-foreground">{v.desc}</p>
             </div>
           ))}
