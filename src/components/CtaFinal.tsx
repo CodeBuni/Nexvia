@@ -13,7 +13,6 @@ export function CtaFinal() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Parallax background
       gsap.to(bgRef.current, {
         yPercent: 30,
         ease: "none",
@@ -21,39 +20,18 @@ export function CtaFinal() {
           trigger: containerRef.current,
           start: "top bottom",
           end: "bottom top",
-          scrub: 1.2,
+          scrub: true,
         },
       });
 
-      // Título e subtítulo com blur e entrada sequencial
       gsap.fromTo(
         ".cta-title, .cta-sub",
-        { opacity: 0, y: 50, filter: "blur(4px)" },
+        { opacity: 0, y: 40 },
         {
           opacity: 1,
           y: 0,
-          filter: "blur(0px)",
-          duration: 1.2,
-          stagger: 0.3,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 80%",
-          },
-        }
-      );
-
-      // Formulário com slide up e escala
-      gsap.fromTo(
-        formRef.current,
-        { opacity: 0, y: 80, scale: 0.9 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
           duration: 1,
-          delay: 0.5,
-          ease: "back.out(1.4)",
+          stagger: 0.2,
           scrollTrigger: {
             trigger: containerRef.current,
             start: "top 75%",
@@ -61,17 +39,14 @@ export function CtaFinal() {
         }
       );
 
-      // Cards do WhatsApp entram pelo lado direito
       gsap.fromTo(
-        ".whatsapp-card",
-        { opacity: 0, x: 60, rotate: 2 },
+        formRef.current,
+        { opacity: 0, y: 40 },
         {
           opacity: 1,
-          x: 0,
-          rotate: 0,
-          duration: 0.8,
-          delay: 0.8,
-          ease: "power2.out",
+          y: 0,
+          duration: 1,
+          delay: 0.4,
           scrollTrigger: {
             trigger: containerRef.current,
             start: "top 75%",
@@ -84,9 +59,9 @@ export function CtaFinal() {
   }, []);
 
   return (
-    <section id="contacto" ref={containerRef} className="relative py-32 overflow-hidden">
+    <section id="contacto" ref={containerRef} className="story-panel story-panel--product relative py-32 overflow-hidden">
       {/* Parallax Background */}
-      <div
+      <div 
         ref={bgRef}
         className="absolute inset-[-20%] w-[140%] h-[140%] bg-[radial-gradient(circle_at_center,rgba(0,194,255,0.08)_0%,transparent_60%)] pointer-events-none"
       />
@@ -94,6 +69,7 @@ export function CtaFinal() {
 
       <div className="container mx-auto px-6 relative z-10 max-w-4xl">
         <div className="text-center mb-16">
+          <div className="neo-kicker cta-title mx-auto mb-6">07 / Próximo passo</div>
           <h2 className="cta-title font-display text-5xl md:text-7xl font-bold mb-6 tracking-tight">
             A sua clínica pode crescer de forma previsível.
           </h2>
@@ -103,25 +79,25 @@ export function CtaFinal() {
         </div>
 
         <div className="grid md:grid-cols-5 gap-12">
-          <form
-            ref={formRef}
+          <form 
+            ref={formRef} 
             className="md:col-span-3 space-y-6"
             onSubmit={(e) => e.preventDefault()}
           >
             <div>
               <label className="block text-sm font-medium mb-2 text-white/80">Nome</label>
-              <input
-                type="text"
+              <input 
+                type="text" 
                 className="glass-input w-full"
                 placeholder="O seu nome"
                 data-testid="input-name"
               />
             </div>
-
+            
             <div>
               <label className="block text-sm font-medium mb-2 text-white/80">Email</label>
-              <input
-                type="email"
+              <input 
+                type="email" 
                 className="glass-input w-full"
                 placeholder="o.seu@email.com"
                 data-testid="input-email"
@@ -130,7 +106,7 @@ export function CtaFinal() {
 
             <div>
               <label className="block text-sm font-medium mb-2 text-white/80">Tipo de Clínica</label>
-              <select
+              <select 
                 className="glass-input w-full [&>option]:bg-card"
                 data-testid="select-clinic-type"
                 defaultValue=""
@@ -147,32 +123,32 @@ export function CtaFinal() {
 
             <div>
               <label className="block text-sm font-medium mb-2 text-white/80">Mensagem (opcional)</label>
-              <textarea
+              <textarea 
                 className="glass-input w-full min-h-[120px] resize-y"
                 placeholder="Como podemos ajudar?"
                 data-testid="input-message"
               ></textarea>
             </div>
 
-            <button
+            <button 
               type="submit"
-              className="w-full bg-primary text-primary-foreground font-bold py-4 rounded-xl flex items-center justify-center gap-2 shadow-lg hover:glow-primary transition-all active:scale-[0.98]"
+              className="neo-button w-full flex items-center justify-center gap-2 active:scale-[0.98]"
               data-testid="button-submit-contact"
             >
               Enviar mensagem <Send size={18} />
             </button>
           </form>
 
-          <div className="md:col-span-2 flex flex-col justify-center whatsapp-card">
-            <div className="bg-card/50 border border-white/10 p-8 rounded-2xl">
+          <div className="md:col-span-2 flex flex-col justify-center">
+            <div className="neo-card p-8">
               <h3 className="font-bold text-xl mb-4">Mais rápido pelo WhatsApp?</h3>
               <p className="text-muted-foreground mb-8">
                 Envie-nos uma mensagem diretamente. Respondemos habitualmente em poucas horas úteis.
               </p>
-
-              <a
+              
+              <a 
                 href="#"
-                className="flex items-center justify-center gap-3 w-full bg-primary text-primary-foreground font-bold py-4 rounded-xl shadow-lg hover:glow-primary transition-all"
+                className="neo-button flex items-center justify-center gap-3 w-full"
                 data-testid="button-whatsapp"
               >
                 <FaWhatsapp size={24} /> Falar no WhatsApp

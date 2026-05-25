@@ -25,13 +25,16 @@ export function Verticais() {
       );
 
       gsap.fromTo(
-        itemsRef.current,
-        { opacity: 0, y: 40 },
+        itemsRef.current.filter(Boolean),
+        { opacity: 0, y: 50, scale: 0.9, filter: "blur(2px)" },
         {
           opacity: 1,
           y: 0,
-          duration: 0.6,
+          scale: 1,
+          filter: "blur(0px)",
+          duration: 0.7,
           stagger: 0.2,
+          ease: "power3.out",
           scrollTrigger: {
             trigger: ".vert-grid",
             start: "top 80%",
@@ -70,12 +73,11 @@ export function Verticais() {
 
         <div className="vert-grid grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10 max-w-5xl mx-auto">
           {verticals.map((v, i) => (
-            <div 
+            <div
               key={i}
-              ref={(el) => (itemsRef.current[i] = el)}
+              ref={(el) => { itemsRef.current[i] = el; }}
               className="p-8 border border-white/10 rounded-2xl bg-card/50 hover:bg-card hover:border-primary/20 transition-all text-center group"
             >
-              {/* Emoji removido para visual mais limpo */}
               <h3 className="font-display text-2xl font-bold mb-3 text-glow-primary">{v.title}</h3>
               <p className="text-muted-foreground">{v.desc}</p>
             </div>

@@ -13,7 +13,7 @@ const plans = [
     price: "€500",
     suffix: " a €2.000",
     badge: "Pagamento único",
-    accent: "primary" as const,
+    accent: "primary",
     features: [
       "Auditoria de processos",
       "Criação de fluxos de automação",
@@ -28,7 +28,7 @@ const plans = [
     price: "€300",
     suffix: " a €800/mês",
     badge: "Sem fidelização cega",
-    accent: "accent" as const,
+    accent: "accent",
     features: [
       "Ajustes em tempo real",
       "Novos fluxos mensais",
@@ -40,7 +40,7 @@ const plans = [
 
 export function Pricing() {
   const containerRef = useRef<HTMLElement>(null);
-  const cardsRef = useRef<Array<HTMLDivElement | null>>([]);
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -55,43 +55,23 @@ export function Pricing() {
             trigger: containerRef.current,
             start: "top 75%",
           },
-        }
+        },
       );
 
-      // Cards com rotação 3D e escala
       gsap.fromTo(
-        cardsRef.current.filter(Boolean),
-        { opacity: 0, y: 60, scale: 0.85, rotateY: 10 },
+        cardsRef.current,
+        { opacity: 0, y: 50 },
         {
           opacity: 1,
           y: 0,
-          scale: 1,
-          rotateY: 0,
           duration: 0.8,
-          stagger: 0.25,
-          ease: "back.out(1.3)",
-          scrollTrigger: {
-            trigger: ".pricing-grid",
-            start: "top 80%",
-          },
-        }
-      );
-
-      // Números grandes animados
-      gsap.fromTo(
-        ".plan-number",
-        { rotation: -15, opacity: 0 },
-        {
-          rotation: 0,
-          opacity: 0.05,
-          duration: 1.2,
           stagger: 0.2,
-          ease: "power3.out",
+          ease: "power2.out",
           scrollTrigger: {
             trigger: ".pricing-grid",
             start: "top 80%",
           },
-        }
+        },
       );
     }, containerRef);
 
@@ -99,11 +79,7 @@ export function Pricing() {
   }, []);
 
   return (
-    <section
-      id="pricing"
-      ref={containerRef}
-      className="relative px-6 py-28 md:py-40"
-    >
+    <section id="pricing" ref={containerRef} className="story-panel relative px-6 py-28 md:py-40">
       <div className="mx-auto max-w-6xl">
         <div className="pricing-title mb-14 max-w-3xl">
           <p className="neo-kicker mb-6">05 / Investimento</p>
@@ -118,8 +94,10 @@ export function Pricing() {
 
             return (
               <div
-                key={plan.number}
-                ref={(el) => { cardsRef.current[index] = el; }}
+                key={plan.title}
+                ref={(el) => {
+                  cardsRef.current[index] = el;
+                }}
                 className={`neo-card group relative overflow-hidden p-8 transition-all duration-300 hover:-translate-y-2 md:p-10 ${
                   isPrimary
                     ? "hover:shadow-[14px_14px_0_var(--neo-blue)]"
@@ -127,7 +105,7 @@ export function Pricing() {
                 }`}
               >
                 <div
-                  className={`plan-number absolute right-8 top-6 font-display text-8xl font-bold opacity-5 transition-opacity group-hover:opacity-10 ${
+                  className={`absolute right-8 top-6 font-display text-8xl font-bold opacity-5 transition-opacity group-hover:opacity-10 ${
                     isPrimary ? "text-primary" : "text-accent"
                   }`}
                 >
@@ -161,10 +139,7 @@ export function Pricing() {
                     ))}
                   </ul>
 
-                  <a
-                    href="#contacto"
-                    className="neo-button inline-flex text-base"
-                  >
+                  <a href="#contacto" className="neo-button inline-flex text-base">
                     Escolher
                   </a>
                 </div>

@@ -1,5 +1,7 @@
+
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Menu, X } from "lucide-react";
 import { Link } from "wouter";
 
@@ -22,9 +24,17 @@ export function Nav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const trigger = document.getElementById("topo");
+
+    const st = ScrollTrigger.create({
+      trigger: trigger ?? document.body,
+      start: "top -60",
+      end: "top -60",
+      onEnter: () => setIsScrolled(true),
+      onLeaveBack: () => setIsScrolled(false),
+    });
+
+    return () => st.kill();
   }, []);
 
   useEffect(() => {
@@ -46,16 +56,18 @@ export function Nav() {
       <div className="container mx-auto px-6 h-24 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2" data-testid="link-logo">
           <NexviaLogo />
-          <span className="font-display font-extrabold text-2xl tracking-wider text-glow-primary" style={{ letterSpacing: '-0.04em' }}>NEXVIA</span>
+          <span className="font-display font-extrabold text-2xl tracking-wider text-glow-primary" style={{letterSpacing: '-0.04em'}}>NEXVIA</span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground">
+        {/* Desktop Links */}
+        <div className="hidden md:flex items-center gap-5 text-sm font-black text-muted-foreground">
           <a href="#servicos" className="hover:text-foreground transition-colors" data-testid="link-nav-servicos">Serviços</a>
           <a href="#vetscribe" className="hover:text-foreground transition-colors" data-testid="link-nav-vetscribe">VetScribe</a>
-          <a href="#contacto" className="text-foreground border border-primary/30 px-5 py-2.5 rounded-full hover:bg-primary/10 transition-colors" data-testid="link-nav-contacto">Contacto</a>
+          <a href="#contacto" className="border-2 border-foreground bg-primary px-4 py-2 text-primary-foreground shadow-[5px_5px_0_var(--neo-violet)] transition-transform hover:-translate-y-0.5" data-testid="link-nav-contacto">Contacto</a>
         </div>
 
-        <button
+        {/* Mobile Toggle */}
+        <button 
           className="md:hidden text-foreground"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           data-testid="button-mobile-menu"
@@ -64,6 +76,7 @@ export function Nav() {
         </button>
       </div>
 
+      {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="absolute top-24 left-0 w-full bg-background border-b border-white/5 py-6 px-6 flex flex-col gap-6 md:hidden">
           <a href="#servicos" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-muted-foreground hover:text-foreground">Serviços</a>

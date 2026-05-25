@@ -5,7 +5,6 @@ export function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Only run on non-touch devices
     if (window.matchMedia("(pointer: coarse)").matches) return;
 
     const cursor = cursorRef.current;
@@ -15,7 +14,7 @@ export function CustomCursor() {
 
     const pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     const mouse = { x: pos.x, y: pos.y };
-    const speed = 0.2;
+    const speed = 0.15;
 
     const xSet = gsap.quickSetter(cursor, "x", "px");
     const ySet = gsap.quickSetter(cursor, "y", "px");

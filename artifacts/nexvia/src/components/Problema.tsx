@@ -6,11 +6,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function Problema() {
   const containerRef = useRef<HTMLElement>(null);
-  const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const itemsRef = useRef<Array<HTMLDivElement | null>>([]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Title animation
       gsap.fromTo(
         ".section-title",
         { opacity: 0, y: 30 },
@@ -25,16 +24,32 @@ export function Problema() {
         }
       );
 
-      // List items animation
-      itemsRef.current.forEach((item, index) => {
+      itemsRef.current.forEach((item, i) => {
         if (!item) return;
+        // Itens alternam entrada da esquerda/direita
         gsap.fromTo(
           item,
-          { opacity: 0, y: 40 },
+          { opacity: 0, x: i % 2 === 0 ? -60 : 60, y: 20 },
           {
             opacity: 1,
+            x: 0,
             y: 0,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: item,
+              start: "top 85%",
+            },
+          }
+        );
+        // Linhas decorativas crescem
+        gsap.fromTo(
+          item.querySelector(".decor-line"),
+          { scaleY: 0 },
+          {
+            scaleY: 1,
             duration: 0.8,
+            delay: 0.4,
             ease: "power2.out",
             scrollTrigger: {
               trigger: item,
@@ -51,24 +66,28 @@ export function Problema() {
   const problems = [
     "Pacientes que não voltam porque ninguém os contactou",
     "Horas perdidas em agendamentos manuais e chamadas",
-    "Sem sistema. Sem previsibilidade. Sem crescimento."
+    "Sem sistema. Sem previsibilidade. Sem crescimento.",
   ];
 
   return (
-    <section ref={containerRef} className="py-32 grain-bg relative border-t border-white/5">
+    <section
+      ref={containerRef}
+      className="py-32 grain-bg relative border-t border-white/5"
+    >
       <div className="container mx-auto px-6 max-w-5xl">
         <h2 className="section-title font-display text-3xl md:text-5xl font-extrabold mb-20 text-center md:text-left text-glow-primary">
-          A maioria das clínicas <span className="text-primary text-glow-primary">perde dinheiro</span> sem saber
+          A maioria das clínicas{" "}
+          <span className="text-primary text-glow-primary">perde dinheiro</span> sem saber
         </h2>
 
         <div className="flex flex-col gap-12">
           {problems.map((prob, i) => (
-            <div 
-              key={i} 
-              ref={(el) => (itemsRef.current[i] = el)}
+            <div
+              key={i}
+              ref={(el) => { itemsRef.current[i] = el; }}
               className="flex items-start gap-6 md:gap-10 group"
             >
-              <div className="flex flex-col items-center justify-center pt-2">
+              <div className="decor-line flex flex-col items-center justify-center pt-2">
                 <div className="w-0.5 h-16 md:h-24 rounded-full bg-primary shadow-[0_0_16px_2px_rgba(79,110,247,0.4)] mb-2" />
                 <div className="w-0.5 h-8 md:h-12 rounded-full bg-accent shadow-[0_0_12px_1px_rgba(123,94,248,0.3)]" />
               </div>

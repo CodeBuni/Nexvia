@@ -12,15 +12,12 @@ export function SocialProof() {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         ".proof-el",
-        { opacity: 0, y: 50, rotateX: -10, scale: 0.95 },
+        { opacity: 0, y: 30 },
         {
           opacity: 1,
           y: 0,
-          rotateX: 0,
-          scale: 1,
-          duration: 0.9,
-          stagger: 0.25,
-          ease: "power2.out",
+          duration: 0.8,
+          stagger: 0.2,
           scrollTrigger: {
             trigger: containerRef.current,
             start: "top 75%",
@@ -33,9 +30,10 @@ export function SocialProof() {
   }, []);
 
   return (
-    <section ref={containerRef} className="py-24 bg-[#0d0d14] border-t border-b border-white/5">
+    <section ref={containerRef} className="story-panel story-panel--violet py-24">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
+          <div className="neo-kicker proof-el mx-auto mb-6">06 / Prova</div>
           <h2 className="proof-el font-display text-4xl md:text-5xl font-bold mb-4">
             Resultados reais. Clínicas reais.
           </h2>
@@ -46,7 +44,7 @@ export function SocialProof() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {[1, 2].map((i) => (
-            <div key={i} className="proof-el p-8 rounded-2xl bg-card border border-white/5 flex flex-col gap-6">
+            <div key={i} className="proof-el neo-card p-8 flex flex-col gap-6">
               <div className="flex gap-1">
                 {[1, 2, 3, 4, 5].map((s) => (
                   <Star key={s} className="w-5 h-5 fill-primary text-primary" />
