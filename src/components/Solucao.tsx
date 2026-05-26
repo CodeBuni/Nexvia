@@ -25,16 +25,35 @@ export function Solucao() {
         }
       );
 
+      // Cards com animação 3D e stagger
       gsap.fromTo(
-        cardsRef.current,
-        { opacity: 0, y: 60, rotate: -6 },
+        cardsRef.current.filter(Boolean),
+        { opacity: 0, y: 70, scale: 0.7, rotateY: 20 },
         {
           opacity: 1,
           y: 0,
-          rotate: 0,
-          duration: 0.7,
-          stagger: 0.18,
-          ease: "power3.out",
+          scale: 1,
+          rotateY: 0,
+          duration: 0.9,
+          stagger: 0.2,
+          ease: "back.out(1.4)",
+          scrollTrigger: {
+            trigger: ".cards-container",
+            start: "top 80%",
+          },
+        }
+      );
+
+      // Ícones com rotação
+      gsap.fromTo(
+        ".card-icon",
+        { rotation: -90, scale: 0.5 },
+        {
+          rotation: 0,
+          scale: 1,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: "elastic.out(1, 0.4)",
           scrollTrigger: {
             trigger: ".cards-container",
             start: "top 80%",
@@ -65,26 +84,22 @@ export function Solucao() {
   ];
 
   return (
-    <section id="servicos" ref={containerRef} className="story-panel py-32 relative">
-      {/* Decorative gradient blur */}
+    <section id="servicos" ref={containerRef} className="py-32 relative bg-[#0d0d14]">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl h-64 bg-primary/10 blur-[100px] rounded-full pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="neo-kicker solucao-title mx-auto mb-6">02 / Sistema operacional</div>
-        <h2 className="solucao-title font-display text-4xl md:text-6xl font-bold mb-16 text-center">
+        <h2 className="solucao-title font-display text-4xl md:text-5xl font-bold mb-16 text-center">
           O que a Nexvia faz por si
         </h2>
 
         <div className="cards-container grid grid-cols-1 md:grid-cols-3 gap-8">
           {services.map((srv, i) => (
-              <div 
-                key={i}
-                ref={(el) => {
-                  cardsRef.current[i] = el;
-                }}
-                className="neo-card p-8 flex flex-col items-start gap-6 transition-transform duration-300 hover:-translate-y-2 group"
+            <div
+              key={i}
+              ref={(el) => { cardsRef.current[i] = el; }}
+              className="glassmorphism p-8 rounded-2xl flex flex-col items-start gap-6 border-brutal hover:glow-primary transition-colors group"
             >
-              <div className="p-4 rounded-xl bg-primary/10 group-hover:scale-110 transition-transform duration-300">
+              <div className="card-icon p-4 rounded-xl bg-primary/10 group-hover:scale-110 transition-transform duration-300">
                 {srv.icon}
               </div>
               <div>

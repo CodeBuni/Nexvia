@@ -1,3 +1,5 @@
+console.log("🔥 HERO CARREGADO - VERSÃO 3D EXPLOSIVA");
+
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";

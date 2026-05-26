@@ -1,40 +1,61 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { applyReveal } from "../lib/cinematicScroll";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export function Problema() {
   const containerRef = useRef<HTMLElement>(null);
-  const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const itemsRef = useRef<Array<HTMLDivElement | null>>([]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Title animation (cinematic preset)
-      applyReveal(
+      gsap.fromTo(
         ".section-title",
-        { opacity: 0, y: 28 },
+        { opacity: 0, y: 30 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.85,
-          ease: "power3.out",
-        },
-        { start: "top 80%", end: "bottom 35%" }
+          duration: 0.8,
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 80%",
+          },
+        }
       );
 
-      // List items animation (cinematic preset)
-      itemsRef.current.forEach((item, index) => {
+      itemsRef.current.forEach((item, i) => {
         if (!item) return;
-        applyReveal(
+        // Itens alternam entrada da esquerda/direita
+        gsap.fromTo(
           item,
-          { opacity: 0, x: index % 2 === 0 ? -48 : 48, y: 54 },
+          { opacity: 0, x: i % 2 === 0 ? -60 : 60, y: 20 },
           {
             opacity: 1,
             x: 0,
             y: 0,
-            duration: 0.9,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: item,
+              start: "top 85%",
+            },
+          }
+        );
+        // Linhas decorativas crescem
+        gsap.fromTo(
+          item.querySelector(".decor-line"),
+          { scaleY: 0 },
+          {
+            scaleY: 1,
+            duration: 0.8,
+            delay: 0.4,
             ease: "power2.out",
-          },
-          { start: "top 82%", end: "bottom 30%" }
+            scrollTrigger: {
+              trigger: item,
+              start: "top 85%",
+            },
+          }
         );
       });
     }, containerRef);
@@ -45,27 +66,28 @@ export function Problema() {
   const problems = [
     "Pacientes que não voltam porque ninguém os contactou",
     "Horas perdidas em agendamentos manuais e chamadas",
-    "Sem sistema. Sem previsibilidade. Sem crescimento."
+    "Sem sistema. Sem previsibilidade. Sem crescimento.",
   ];
 
   return (
-    <section id="problema" ref={containerRef} className="story-panel story-panel--ink py-32 grain-bg relative">
+    <section
+      ref={containerRef}
+      className="py-32 grain-bg relative border-t border-white/5"
+    >
       <div className="container mx-auto px-6 max-w-5xl">
-        <div className="neo-kicker section-title mb-8">01 / Fuga invisível</div>
-        <h2 className="section-title font-display text-3xl md:text-6xl font-extrabold mb-20 text-center md:text-left text-glow-primary">
-          A maioria das clínicas <span className="text-primary text-glow-primary">perde dinheiro</span> sem saber
+        <h2 className="section-title font-display text-3xl md:text-5xl font-extrabold mb-20 text-center md:text-left text-glow-primary">
+          A maioria das clínicas{" "}
+          <span className="text-primary text-glow-primary">perde dinheiro</span> sem saber
         </h2>
 
         <div className="flex flex-col gap-12">
           {problems.map((prob, i) => (
-            <div 
-              key={i} 
-              ref={(el) => {
-                itemsRef.current[i] = el;
-              }}
-              className="neo-story-card flex items-start gap-6 md:gap-10 group"
+            <div
+              key={i}
+              ref={(el) => { itemsRef.current[i] = el; }}
+              className="flex items-start gap-6 md:gap-10 group"
             >
-              <div className="flex flex-col items-center justify-center pt-2">
+              <div className="decor-line flex flex-col items-center justify-center pt-2">
                 <div className="w-0.5 h-16 md:h-24 rounded-full bg-primary shadow-[0_0_16px_2px_rgba(79,110,247,0.4)] mb-2" />
                 <div className="w-0.5 h-8 md:h-12 rounded-full bg-accent shadow-[0_0_12px_1px_rgba(123,94,248,0.3)]" />
               </div>
