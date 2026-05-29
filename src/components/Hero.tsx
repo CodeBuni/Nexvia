@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowDown } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,7 +10,6 @@ export function Hero() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subheadRef = useRef<HTMLParagraphElement>(null);
   const btnRef = useRef<HTMLAnchorElement>(null);
-  const arrowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Animação de entrada (linha do tempo)
@@ -31,14 +29,8 @@ export function Hero() {
       .fromTo(
         btnRef.current,
         { y: 40, opacity: 0, scale: 0.8 },
-        { y: 0, opacity: 1, scale: 1, duration: 0.7, ease: "back.out(1.7)" },
+        { y: 0, opacity: 1, scale: 1, duration: 0.7, ease: "back.out(1.5)" },
         "-=0.5"
-      )
-      .fromTo(
-        arrowRef.current,
-        { opacity: 0, y: -20 },
-        { opacity: 0.6, y: 0, duration: 1 },
-        "-=0.3"
       );
 
     // Parallax do gradiente de fundo
@@ -51,19 +43,6 @@ export function Hero() {
         start: "top top",
         end: "bottom top",
         scrub: 0.8,
-      },
-    });
-
-    // Parallax das partículas (mais lento = mais profundidade)
-    gsap.to(".hero-particles", {
-      y: -200,
-      opacity: 0,
-      ease: "none",
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top top",
-        end: "bottom top",
-        scrub: 0.5,
       },
     });
 
@@ -85,33 +64,12 @@ export function Hero() {
         pinSpacing: true,
       },
     });
-
-    // Esconder seta ao scrollar
-    gsap.to(arrowRef.current, {
-      opacity: 0,
-      y: 30,
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top+=100 top",
-        end: "top+=300 top",
-        scrub: 0.5,
-      },
-    });
-
-    // Bounce perpétuo da seta
-    gsap.to(arrowRef.current, {
-      y: 12,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-      duration: 1.8,
-    });
   }, []);
 
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 bg-[#0A0A0F]"
       style={{ perspective: "1200px" }}
     >
       {/* Fundo com gradiente animado */}
@@ -128,58 +86,53 @@ export function Hero() {
         }}
       />
 
-      {/* Grid decorativo de fundo */}
-      <div 
-        className="absolute inset-0 z-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
-          `,
-          backgroundSize: '60px 60px',
-        }}
-      />
+      {/* Camada do Coração Gigante, Linha de ECG Infinita e Desfoques */}
+      <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center overflow-hidden">
+        {/* Glow de fundo sincronizado com o batimento */}
+        <div className="absolute w-[600px] h-[600px] bg-primary/10 blur-[130px] rounded-full animate-heartbeat-glow" />
 
-      {/* Partículas flutuantes */}
-      <div className="hero-particles absolute inset-0 z-0 overflow-hidden">
-        {[...Array(30)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full"
+        {/* SVG Unificado com largura total (w-full) de ponta a ponta da tela */}
+        <svg
+          viewBox="0 0 1920 600"
+          className="absolute w-full h-[44rem] text-primary/15 animate-heartbeat"
+          fill="none"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          {/* Coração Centralizado no Canvas Expandido (X: 960) */}
+          <path
+            d="M960 430C960 430 780 295 780 205C780 149.56 823.56 106 879 106C910.32 106 940.38 120.58 960 143.62C979.62 120.58 1009.68 106 1041 106C1096.44 106 1140 149.56 1140 205C1140 295 960 430 960 430Z"
+            strokeWidth="1.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+
+          {/* Linha de Monitor Médico (ECG) BRANCA - AGORA DE 0 A 1920 (TELA INTEIRA) */}
+          <path
+            d="M 0 320 L 780 320 L 800 295 L 820 345 L 840 320 L 910 320 L 925 210 L 945 430 L 965 270 L 980 320 L 1010 320 L 1025 285 L 1040 340 L 1055 320 L 1920 320"
+            strokeWidth="3.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="text-white/70 animate-ecg-line"
             style={{
-              width: `${Math.random() * 3 + 1}px`,
-              height: `${Math.random() * 3 + 1}px`,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              backgroundColor: i % 3 === 0 ? 'rgba(79,110,247,0.4)' : i % 3 === 1 ? 'rgba(123,94,248,0.3)' : 'rgba(0,194,255,0.3)',
-              boxShadow: i % 3 === 0 ? '0 0 6px rgba(79,110,247,0.6)' : i % 3 === 1 ? '0 0 6px rgba(123,94,248,0.5)' : '0 0 6px rgba(0,194,255,0.4)',
-              animation: `heroFloat ${Math.random() * 10 + 15}s linear infinite`,
-              animationDelay: `${Math.random() * 10}s`,
+              strokeDasharray: "2500",
+              strokeDashoffset: "2500",
+              filter: "drop-shadow(0px 0px 8px rgba(255, 255, 255, 0.6))"
             }}
           />
-        ))}
+        </svg>
+
+        {/* Máscara de Desfoque Transparente Avançada (Filtro para destacar o texto à frente) */}
+        <div 
+          className="absolute inset-0 backdrop-blur-[7px] mix-blend-normal opacity-[0.97]"
+          style={{
+            maskImage: "radial-gradient(circle at center, black 15%, rgba(0,0,0,0.7) 45%, transparent 75%)",
+            WebkitMaskImage: "radial-gradient(circle at center, black 15%, rgba(0,0,0,0.7) 45%, transparent 75%)"
+          }}
+        />
       </div>
 
-      {/* Círculos grandes desfocados para atmosfera */}
-      <div className="absolute top-1/4 -left-32 w-96 h-96 bg-primary/10 rounded-full blur-[120px] z-0" />
-      <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-accent/10 rounded-full blur-[120px] z-0" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px] z-0" />
-
-      {/* Overlay de ruído/textura */}
-      <div 
-        className="absolute inset-0 z-0 opacity-[0.04] mix-blend-overlay pointer-events-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-        }}
-      />
-
-      {/* Linhas de luz decorativas */}
-      <div className="absolute inset-0 z-0 opacity-20">
-        <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
-        <div className="absolute top-0 right-1/4 w-px h-full bg-gradient-to-b from-transparent via-accent/20 to-transparent" />
-      </div>
-
-      {/* Wrapper 3D que sofrerá o efeito de afastamento */}
+      {/* Wrapper 3D Content */}
       <div
         ref={contentWrapperRef}
         className="container mx-auto px-6 relative z-10 flex flex-col items-center text-center max-w-4xl"
@@ -187,7 +140,7 @@ export function Hero() {
       >
         <h1
           ref={headlineRef}
-          className="font-display text-5xl md:text-7xl lg:text-8xl font-black leading-[1.1] mb-6 tracking-tight opacity-0"
+          className="font-display text-5xl md:text-7xl lg:text-8xl font-black leading-[1.1] mb-6 tracking-tight opacity-0 text-white"
         >
           Automação que enche a agenda.
           <br className="hidden md:block" />
@@ -199,48 +152,74 @@ export function Hero() {
 
         <p
           ref={subheadRef}
-          className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl opacity-0 font-light"
+          className="text-lg md:text-xl text-muted-foreground/90 mb-10 max-w-2xl opacity-0 font-light"
         >
           Ajudamos clínicas de saúde privada a automatizar processos, reter
           pacientes e crescer de forma previsível.
         </p>
 
+        {/* Botão Otimizado no Estilo NEO-BRUTALISTA */}
         <a
           ref={btnRef}
           href="#contacto"
-          className="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-primary-foreground bg-primary rounded-full overflow-hidden transition-all hover:glow-primary opacity-0"
+          className="group relative inline-flex items-center justify-center px-10 py-5 font-black text-xl text-white bg-primary rounded-xl border-2 border-primary transition-transform duration-150 active:translate-x-[3px] active:translate-y-[3px] opacity-0 neo-brutalism-shadow"
           data-testid="button-hero-cta"
         >
-          <div className="absolute inset-0 w-full h-full bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
-          <span className="relative">Quero saber mais</span>
+          Quero saber mais
         </a>
       </div>
 
-      {/* Seta indicadora */}
-      <div
-        ref={arrowRef}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-primary/70 opacity-0 z-10"
-      >
-        <ArrowDown size={32} strokeWidth={1} />
-      </div>
-
-      {/* Animação das partículas */}
       <style>{`
-        @keyframes heroFloat {
-          0%, 100% {
-            transform: translateY(0) translateX(0);
-            opacity: 0;
-          }
-          10% {
-            opacity: 0.8;
-          }
-          50% {
-            transform: translateY(-80px) translateX(40px);
-            opacity: 0.4;
-          }
-          90% {
-            opacity: 0.1;
-          }
+        /* Pulsação orgânica do coração */
+        @keyframes heartbeat {
+          0%, 100% { transform: scale(1); opacity: 0.6; }
+          22% { transform: scale(1.05); opacity: 1; }
+          32% { transform: scale(1.01); }
+          45% { transform: scale(1.03); opacity: 0.9; }
+        }
+
+        /* Expansão sutil do glow de fundo */
+        @keyframes heartbeatGlow {
+          0%, 100% { transform: scale(1); opacity: 0.4; }
+          22% { transform: scale(1.18); opacity: 0.9; }
+          45% { transform: scale(1.08); opacity: 0.7; }
+        }
+
+        /* Movimento contínuo e infinito da linha do monitor médico de ponta a ponta */
+        @keyframes ecgPulse {
+          0% { stroke-dashoffset: 2500; }
+          100% { stroke-dashoffset: -2500; }
+        }
+
+        .animate-heartbeat {
+          animation: heartbeat 2.2s cubic-bezier(0.215, 0.610, 0.355, 1) infinite;
+        }
+
+        .animate-heartbeat-glow {
+          animation: heartbeatGlow 2.2s cubic-bezier(0.215, 0.610, 0.355, 1) infinite;
+        }
+
+        .animate-ecg-line {
+          animation: ecgPulse 4.5s linear infinite;
+        }
+        
+        .text-glow-primary {
+          text-shadow: 0 0 40px rgba(79, 110, 247, 0.35);
+        }
+
+        /* Efeito Neo-Brutalist: Sombra sólida, limpa e bem definida */
+        .neo-brutalism-shadow {
+          box-shadow: 6px 6px 0px 0px #030305, 6px 6px 0px 2px #4F6EF7;
+        }
+        
+        .neo-brutalism-shadow:hover {
+          transform: translate(2px, 2px);
+          box-shadow: 4px 4px 0px 0px #030305, 4px 4px 0px 2px #4F6EF7;
+        }
+
+        .neo-brutalism-shadow:active {
+          transform: translate(6px, 6px);
+          box-shadow: 0px 0px 0px 0px transparent;
         }
       `}</style>
     </section>
